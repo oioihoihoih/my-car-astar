@@ -1,0 +1,7 @@
+{
+  "test_kind": "isolated ROS interfaces with a FAKE motor-power service; no physical robot",
+  "person_trip_requested_torque_off": true,
+  "independent_watchdog_requested_torque_off_after_gate_SIGKILL": true,
+  "watchdog_observed_delay_s": 0.5508,
+  "automatic_motor_enable_calls": 0
+}

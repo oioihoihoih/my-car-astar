@@ -1,0 +1,3 @@
+Stop Sign by Cole Biesemeyer and Nate Koenig
+Source: https://github.com/osrf/gazebo_models/tree/8163eb4b5e7e21985c6591d1c0bfb56468c0093f/stop_sign
+License: Creative Commons Attribution 3.0 Unported. See LICENSE.

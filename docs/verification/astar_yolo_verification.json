@@ -1,0 +1,143 @@
+{
+  "goal": [
+    0.3,
+    -0.5
+  ],
+  "final_map_position": [
+    0.22902919491240517,
+    -0.5032964171680832
+  ],
+  "goal_error_m": 0.071,
+  "max_odometry_displacement_m": 2.2327,
+  "astar_path_pose_count": 48,
+  "cmd_vel_publishers": [
+    "astar_pure_pursuit"
+  ],
+  "moving_detection_frame_count": 89,
+  "moving_detection_samples": [
+    {
+      "detection": {
+        "header": {
+          "frame_id": "camera_rgb_optical_frame",
+          "stamp": {
+            "sec": 44,
+            "nanosec": 538000000
+          }
+        },
+        "image_width": 640,
+        "image_height": 480,
+        "inference_ms": 163.0,
+        "detections": [
+          {
+            "class_id": 11,
+            "label": "stop sign",
+            "confidence": 0.8954,
+            "bbox_xyxy": [
+              284.6,
+              140.84,
+              333.16,
+              190.17
+            ]
+          }
+        ]
+      },
+      "odometry_at_capture": {
+        "time": 44.533,
+        "x": -1.8985953581203892,
+        "y": -0.5009380443779846,
+        "linear_x": 0.05198920072555799,
+        "angular_z": -0.025500415330082453
+      },
+      "displacement_at_capture_m": 0.10140908069636191
+    },
+    {
+      "detection": {
+        "header": {
+          "frame_id": "camera_rgb_optical_frame",
+          "stamp": {
+            "sec": 54,
+            "nanosec": 738000000
+          }
+        },
+        "image_width": 640,
+        "image_height": 480,
+        "inference_ms": 110.4,
+        "detections": [
+          {
+            "class_id": 11,
+            "label": "stop sign",
+            "confidence": 0.9405,
+            "bbox_xyxy": [
+              280.79,
+              103.65,
+              347.8,
+              173.06
+            ]
+          }
+        ]
+      },
+      "odometry_at_capture": {
+        "time": 54.733,
+        "x": -0.8370778341059365,
+        "y": -0.5217172449064372,
+        "linear_x": 0.12002061152218187,
+        "angular_z": 0.00663692267156841
+      },
+      "displacement_at_capture_m": 1.16312503144337
+    },
+    {
+      "detection": {
+        "header": {
+          "frame_id": "camera_rgb_optical_frame",
+          "stamp": {
+            "sec": 64,
+            "nanosec": 573000000
+          }
+        },
+        "image_width": 640,
+        "image_height": 480,
+        "inference_ms": 113.0,
+        "detections": [
+          {
+            "class_id": 11,
+            "label": "stop sign",
+            "confidence": 0.9432,
+            "bbox_xyxy": [
+              326.68,
+              19.77,
+              439.26,
+              132.58
+            ]
+          }
+        ]
+      },
+      "odometry_at_capture": {
+        "time": 64.559,
+        "x": 0.20966046063728078,
+        "y": -0.49453348416559373,
+        "linear_x": 0.0989947400182573,
+        "angular_z": 0.02189011760887958
+      },
+      "displacement_at_capture_m": 2.209667321084926
+    }
+  ],
+  "blocked_sign_goal_rejected": true,
+  "stopped_on_arrival": true,
+  "status_history": [
+    "Waiting for /map, /amcl_pose, and /goal_pose",
+    "Map received: 112 x 103; set a goal with RViz 2D Goal Pose",
+    "Goal received: (0.30, -0.50); planning",
+    "Following A* path (47 cells)",
+    "Following A* path",
+    "Position transform is stale; stopped",
+    "Following A* path",
+    "Position transform is stale; stopped",
+    "Following A* path",
+    "Position transform is stale; stopped",
+    "Following A* path",
+    "Position transform is stale; stopped",
+    "Goal reached; stopped",
+    "Goal received: (2.00, -0.50); planning",
+    "Start or goal is occupied/too close to a wall; stopped"
+  ]
+}

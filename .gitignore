@@ -1,0 +1,31 @@
+# colcon and generated ROS state
+/build/
+/install/
+/log/
+/.runtime/
+/.ros/
+
+# Local Python environments and model caches
+/.venv*/
+/.cache/
+/.yolo-config/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Editor and local credentials
+.vscode/
+.idea/
+.env
+.env.*
+*.pem
+*.key
+*.log
+*.bag
+*.db3
+*.mcap
+
+# Operating system files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="default">
+    <include><uri>model://sun</uri></include>
+    <include><uri>model://ground_plane</uri></include>
+    <scene>
+      <ambient>0.6 0.6 0.6 1</ambient>
+      <background>0.72 0.82 0.92 1</background>
+      <shadows>false</shadows>
+    </scene>
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <gui>
+      <camera name="user_camera">
+        <pose>3 -4 2.2 0 0.4 2.21</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+    <model name="demo_stop_sign">
+      <static>true</static>
+      <pose>2.0 0.0 -0.3 0.0 0.0 -1.57079632679</pose>
+      <link name="sign">
+        <visual name="sign_visual">
+          <geometry><mesh>
+            <uri>model://stop_sign/meshes/stop_sign.dae</uri>
+            <scale>0.6 0.6 0.6</scale>
+          </mesh></geometry>
+          <material><script>
+            <uri>model://stop_sign/materials/scripts</uri>
+            <uri>model://stop_sign/materials/textures</uri>
+            <name>StopSign/Diffuse</name>
+          </script></material>
+        </visual>
+        <collision name="sign_collision">
+          <geometry><mesh>
+            <uri>model://stop_sign/meshes/stop_sign.dae</uri>
+            <scale>0.6 0.6 0.6</scale>
+          </mesh></geometry>
+        </collision>
+      </link>
+    </model>
+  </world>
+</sdf>
