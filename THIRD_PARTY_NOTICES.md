@@ -18,4 +18,8 @@ Ultralytics와 가중치의 이용·재배포는 원 제공자의 라이선스 �
 
 ROS 2, Navigation2, Gazebo와 TurtleBot3 패키지는 시스템 의존성으로 사용하며 각 프로젝트의 라이선스가 적용됩니다. TurtleBot3 로봇 모델은 설치된 `turtlebot3_gazebo`에서 로딩합니다.
 
+## Laya
+
+Laya SDK는 `laya==0.4.8`, 모델은 `convaiinnovations/laya`의 revision `7b928d828b7b0e022f929d9bd2e44165aa270148`을 사용한 실험입니다. [원본 코드](https://github.com/NandhaKishorM/laya)와 [모델 카드](https://huggingface.co/convaiinnovations/laya)의 Apache 2.0 조건을 확인하세요. SDK와 가중치는 설치 시 다운로드하며 이 저장소에 복사해 넣지 않았습니다.
+
 이 정리 작업에서 저장소 전체에 새로운 오픈소스 라이선스를 부여하지 않았습니다. 외부 에셋의 원 출처와 라이선스를 보존했습니다.

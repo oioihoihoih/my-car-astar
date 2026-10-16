@@ -51,6 +51,7 @@ setup(
             'person_safety_gate = my_bot.person_safety_gate:main',
             'spawn_demo_person = my_bot.spawn_demo_person:main',
             'actuator_watchdog = my_bot.actuator_watchdog:main',
+            'laya_bridge = my_bot.laya_bridge:main',
         ],
     },
 )

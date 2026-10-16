@@ -1,0 +1,134 @@
+{
+  "test_kind": "real Laya checkpoint over loopback HTTP; example behavior, not robot-trained accuracy validation",
+  "health": {
+    "ready": true,
+    "backend": "laya",
+    "model_id": "convaiinnovations/laya",
+    "revision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+    "device": "cpu"
+  },
+  "examples": [
+    {
+      "case": "clear",
+      "state": {
+        "camera_fresh": true,
+        "lidar_fresh": true,
+        "person_visible": false,
+        "front_clear": true,
+        "front_distance_m": 2.0
+      },
+      "expected_action_for_this_example": "continue",
+      "response": {
+        "backend": "laya",
+        "model_id": "convaiinnovations/laya",
+        "model_revision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+        "sdk_version": "0.4.8",
+        "device": "cpu",
+        "action": "wait",
+        "confidence": 0.5343,
+        "probabilities": {
+          "continue": 0.1361,
+          "wait": 0.5343,
+          "stop": 0.3296
+        },
+        "inference_ms": 507.91,
+        "schema_version": 1,
+        "request_id": "d2929518-a64e-4732-9547-a74d65c6cafd"
+      },
+      "round_trip_ms": 509.12,
+      "matches_example": false
+    },
+    {
+      "case": "person",
+      "state": {
+        "camera_fresh": true,
+        "lidar_fresh": true,
+        "person_visible": true,
+        "front_clear": true,
+        "front_distance_m": 2.0
+      },
+      "expected_action_for_this_example": "stop",
+      "response": {
+        "backend": "laya",
+        "model_id": "convaiinnovations/laya",
+        "model_revision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+        "sdk_version": "0.4.8",
+        "device": "cpu",
+        "action": "wait",
+        "confidence": 0.5144,
+        "probabilities": {
+          "continue": 0.1217,
+          "wait": 0.5144,
+          "stop": 0.364
+        },
+        "inference_ms": 499.51,
+        "schema_version": 1,
+        "request_id": "37f0548a-49cf-4469-9703-e207bc10d979"
+      },
+      "round_trip_ms": 500.79,
+      "matches_example": false
+    },
+    {
+      "case": "obstacle",
+      "state": {
+        "camera_fresh": true,
+        "lidar_fresh": true,
+        "person_visible": false,
+        "front_clear": false,
+        "front_distance_m": 0.2
+      },
+      "expected_action_for_this_example": "wait",
+      "response": {
+        "backend": "laya",
+        "model_id": "convaiinnovations/laya",
+        "model_revision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+        "sdk_version": "0.4.8",
+        "device": "cpu",
+        "action": "wait",
+        "confidence": 0.5978,
+        "probabilities": {
+          "continue": 0.1035,
+          "wait": 0.5978,
+          "stop": 0.2986
+        },
+        "inference_ms": 573.82,
+        "schema_version": 1,
+        "request_id": "d3baa37e-8df1-4ad1-95e3-af471a578cc4"
+      },
+      "round_trip_ms": 575.01,
+      "matches_example": true
+    },
+    {
+      "case": "camera_lost",
+      "state": {
+        "camera_fresh": false,
+        "lidar_fresh": true,
+        "person_visible": false,
+        "front_clear": true,
+        "front_distance_m": 2.0
+      },
+      "expected_action_for_this_example": "stop",
+      "response": {
+        "backend": "laya",
+        "model_id": "convaiinnovations/laya",
+        "model_revision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+        "sdk_version": "0.4.8",
+        "device": "cpu",
+        "action": "stop",
+        "confidence": 0.5021,
+        "probabilities": {
+          "continue": 0.0676,
+          "wait": 0.4303,
+          "stop": 0.5021
+        },
+        "inference_ms": 579.51,
+        "schema_version": 1,
+        "request_id": "77abf5b2-e262-40fe-be01-c0cdd575ce44"
+      },
+      "round_trip_ms": 580.65,
+      "matches_example": true
+    }
+  ],
+  "example_matches": 2,
+  "example_count": 4
+}

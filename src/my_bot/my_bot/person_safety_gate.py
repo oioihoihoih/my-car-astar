@@ -16,6 +16,7 @@ from std_msgs.msg import Bool, String
 from std_srvs.srv import SetBool, Trigger
 
 from my_bot.person_stop_policy import PersonStopPolicy
+from my_bot.laya_protocol import LayaDecisionPolicy
 
 
 class PersonSafetyGate(Node):
@@ -25,6 +26,7 @@ class PersonSafetyGate(Node):
             'input_cmd_topic': '/cmd_vel_nav', 'output_cmd_topic': '/cmd_vel',
             'detections_topic': '/yolo/detections',
             'auto_arm_startup': False, 'motor_power_on_trip': False,
+            'require_laya': False, 'laya_timeout': 3.0, 'laya_min_confidence': 0.7,
             'motor_power_service': '/motor_power',
             'detection_timeout': 1.0, 'max_frame_age': 1.0,
             'command_timeout': 0.25, 'clear_time': 1.0,
@@ -51,6 +53,7 @@ class PersonSafetyGate(Node):
         self.policy = PersonStopPolicy(
             self.detection_timeout, self.max_frame_age, self.command_timeout,
             self.clear_time, self.person_confidence, self.auto_arm_startup, restored)
+        self.laya_policy = LayaDecisionPolicy(self.laya_timeout, self.laya_min_confidence)
         self.saved_reason = object()  # Check state-file writability before arming.
         self.last_status = None
         self.last_graph_check = 0.0
@@ -64,6 +67,8 @@ class PersonSafetyGate(Node):
         self.status_pub = self.create_publisher(String, '/safety/status', latched)
         self.create_subscription(Twist, self.input_cmd_topic, self.on_command, 1)
         self.create_subscription(String, self.detections_topic, self.on_detection, 1)
+        if self.require_laya:
+            self.create_subscription(String, '/laya/decision', self.on_laya, 1)
         self.create_service(Trigger, '/safety/reset', self.on_reset)
         self.create_service(Trigger, '/safety/stop_now', self.on_manual_stop)
         # Wall/steady time keeps the watchdog running even if /clock pauses.
@@ -113,6 +118,14 @@ class PersonSafetyGate(Node):
             self.get_logger().error(f'Safety state write failed: {error}')
             return False
 
+    def on_laya(self, msg):
+        try:
+            report = json.loads(msg.data)
+        except (ValueError, TypeError):
+            report = {}
+        self.laya_policy.observe(report, time.monotonic())
+        self.tick()
+
     def foreign_publishers(self):
         publishers = self.get_publishers_info_by_topic(self.output_cmd_topic)
         if len(publishers) > 1:
@@ -126,12 +139,19 @@ class PersonSafetyGate(Node):
             if self.foreign_publishers():
                 self.policy.trip('Another node is publishing to the actuator topic')
             self.last_graph_check = now
-        values, reason = self.policy.output(now)
+        laya_allowed, laya_reason = self.laya_policy.check(now) if self.require_laya else (True, '')
+        if laya_allowed:
+            values, reason = self.policy.output(now)
+            allowed, reason = self.policy.check(now)
+        else:
+            if self.policy.ever_ready:
+                self.policy.trip(laya_reason)
+            values = (0.0,) * 6
+            allowed, reason = False, self.policy.reason or laya_reason
         msg = Twist()
         msg.linear.x = max(-self.max_linear, min(self.max_linear, values[0]))
         msg.angular.z = max(-self.max_angular, min(self.max_angular, values[5]))
         self.output_pub.publish(msg)
-        allowed, reason = self.policy.check(now)
         if not self.persist():
             allowed, reason = False, self.policy.reason
         self.stop_pub.publish(Bool(data=not allowed))
@@ -169,6 +189,11 @@ class PersonSafetyGate(Node):
         return response
 
     def on_reset(self, _request, response):
+        if self.require_laya:
+            allowed, reason = self.laya_policy.check(time.monotonic())
+            if not allowed:
+                response.success, response.message = False, reason
+                return response
         self.policy.check(time.monotonic())
         if self.foreign_publishers():
             response.success, response.message = False, 'Remove other actuator-topic publishers first'

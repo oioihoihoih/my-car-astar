@@ -17,6 +17,10 @@ from my_bot.astar_pure_pursuit import AStarPurePursuit
 def controller():
     rclpy.init()
     node = AStarPurePursuit()
+    # Keep the sensor age deterministic even during a slow model import in
+    # another process. Timeout tests advance the recorded scan age explicitly.
+    fixed_time = node.get_clock().now()
+    node.get_clock = lambda: SimpleNamespace(now=lambda: fixed_time)
     commands = []
     node.cmd_pub = SimpleNamespace(publish=lambda msg: commands.append(
         (msg.linear.x, msg.angular.z)))

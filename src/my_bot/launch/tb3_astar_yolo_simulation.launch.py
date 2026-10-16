@@ -27,13 +27,15 @@ def generate_launch_description():
         DeclareLaunchArgument('demo_goal_y', default_value='-0.5'),
         DeclareLaunchArgument('demo_goal_yaw', default_value='0.0'),
         DeclareLaunchArgument('person_demo', default_value='false'),
+        DeclareLaunchArgument('require_laya', default_value='false'),
         DeclareLaunchArgument('world', default_value=os.path.join(
             bot_share, 'worlds', 'tb3_astar_yolo.world')),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(
                 launch_dir, 'person_safety_gate.launch.py')),
             launch_arguments={'use_sim_time': 'true', 'auto_arm_startup': 'true',
-                              'output_cmd_topic': '/cmd_vel', 'clear_time': '3.0'}.items()),
+                              'output_cmd_topic': '/cmd_vel', 'clear_time': '3.0',
+                              'require_laya': LaunchConfiguration('require_laya')}.items()),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(
                 launch_dir, 'yolo_detection.launch.py'))),
