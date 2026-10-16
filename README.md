@@ -7,6 +7,8 @@ ROS 2에서 **TurtleBot3 생성 → 지도 기반 A* 경로 계획 → Pure Purs
 - 사람이 사라져도 정지를 유지하며, 수동 해제와 새 목적지가 필요합니다.
 - 실물용 실행 구성은 **Waffle Pi / LDS-03 / Raspberry Pi CSI 카메라 / ROS 도메인 16**을 기준으로 준비했습니다. 실물 설치와 주행은 이번 작업에서 검증하지 못했습니다.
 
+**Laya 연결 실험:** [PC/로봇 로컬 추론과 ROS 2 통신 프로토타입](docs/LAYA.md)을 추가했습니다. 실제 기본 모델의 로봇 상황 판단은 아직 정확하지 않아, 학습·평가 전에는 관찰 용도로 사용합니다. 기존 실행의 기본값은 Laya 판단을 요구하지 않습니다.
+
 ![Gazebo에서 실제 YOLO가 검출한 사람](docs/images/person_emergency_stop.png)
 
 ## 1. 실행 환경
@@ -238,7 +240,7 @@ my-car-astar/
 
 ## 9. 검증
 
-정책과 주행 제어 테스트 24개를 통과했습니다.
+기존 정책·주행 제어 24개와 Laya 연결·게이트 16개, 총 40개 테스트를 통과했습니다.
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -246,7 +248,9 @@ source install/local_setup.bash
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest -q -p no:cacheprovider \
   src/my_bot/test/test_astar.py \
   src/my_bot/test/test_astar_controller.py \
-  src/my_bot/test/test_person_stop_policy.py
+  src/my_bot/test/test_person_stop_policy.py \
+  src/my_bot/test/test_laya_protocol.py \
+  src/my_bot/test/test_laya_gate.py
 ```
 
 - **Gazebo 통합 시험:** 약 0.38m 주행 뒤 실제 3D 사람을 `person 0.8796`으로 검출하고 정지. 사람 존재 중 해제 거부, 사라진 뒤 정지 유지, 수동 해제와 새 목표에 따른 재주행을 확인했습니다. Gazebo 시각을 일시 정지해도 영상 끊김 정지가 작동했습니다.

@@ -1,0 +1,24 @@
+{
+  "test_kind": "actual Laya weights -> loopback HTTP -> ROS 2 bridge -> real gate; synthetic sensor inputs, no physical robot",
+  "actual_decision": {
+    "backend": "laya",
+    "model_id": "convaiinnovations/laya",
+    "model_revision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+    "sdk_version": "0.4.8",
+    "device": "cpu",
+    "action": "wait",
+    "confidence": 0.5343,
+    "probabilities": {
+      "continue": 0.1361,
+      "wait": 0.5343,
+      "stop": 0.3296
+    },
+    "inference_ms": 640.56,
+    "schema_version": 1,
+    "request_id": "00f7c6d7-8ff0-4493-80ec-24c9091ed203",
+    "request_age_s": 0.677551
+  },
+  "real_model_wait_kept_velocity_zero": true,
+  "network_timeout_reported_and_zero_output_maintained": true,
+  "after_armed_timeout_latching": "covered separately by test_laya_gate.py; this real base model did not authorize motion"
+}
